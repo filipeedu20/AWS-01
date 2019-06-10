@@ -1,0 +1,173 @@
+---
+swagger: "2.0"
+info:
+  description: "API teste para aplicação de uma livraria"
+  version: "1.0.0"
+  title: "API Livraria"
+  contact:
+    email: "filipeedu.bh@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "virtserver.swaggerhub.com"
+basePath: "/filipeedu20/app-livraria/1.0.0"
+tags:
+- name: "livro"
+  description: "Retorna livros"
+- name: "developers"
+  description: "Operations available to regular developers"
+schemes:
+- "https"
+paths:
+  /livros/:
+    get:
+      tags:
+      - "livraria"
+      summary: "Retorna livros"
+      description: "By passing in the appropriate options, you can search for\navailable\
+        \ inventory in the system\n"
+      operationId: "searchInventory"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "searchString"
+        in: "query"
+        description: "pass an optional search string for looking up inventory"
+        required: true
+        type: "string"
+      - name: "skip"
+        in: "query"
+        description: "number of records to skip for pagination"
+        required: false
+        type: "integer"
+        minimum: 0
+        format: "int32"
+      - name: "limit"
+        in: "query"
+        description: "maximo de itens que será retornado"
+        required: false
+        type: "integer"
+        maximum: 50
+        minimum: 0
+        format: "int32"
+      responses:
+        200:
+          description: "sucesso"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Livros"
+        400:
+          description: "parametro inválidos"
+      x-swagger-router-controller: "Livraria"
+    post:
+      tags:
+      - "livraria"
+      summary: "Adiciona novo livro"
+      description: "Adiciona novo livro no sistema"
+      operationId: "insere"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Add livro"
+        required: false
+        schema:
+          $ref: "#/definitions/Livros"
+      responses:
+        201:
+          description: "item criado"
+        400:
+          description: "Entrada inválida"
+        409:
+          description: "Já existe item registrado com essas infromações"
+      x-swagger-router-controller: "Livraria"
+  /livros/{livroId}:
+    get:
+      tags:
+      - "Livros"
+      summary: "Retorna livro com a id informada"
+      operationId: "lista livros"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "livroId"
+        in: "path"
+        description: "informacoes do libro retornado"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "sucesso"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Livros"
+        400:
+          description: "parametro inválidos"
+      x-swagger-router-controller: "Livros"
+  /autores/{autorId}:
+    get:
+      tags:
+      - "livraria"
+      summary: "Retorna autor com a id informada"
+      operationId: "lista autores"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "autorId"
+        in: "path"
+        description: "Retorna autor com a id informac"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "sucesso"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Livros"
+        400:
+          description: "parametro inválidos"
+      x-swagger-router-controller: "Livraria"
+definitions:
+  Livros:
+    type: "object"
+    required:
+    - "ano_lancamento"
+    - "editora"
+    - "genero"
+    - "isbn"
+    - "nome"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+        example: "d290f1ee-6c54-4b01-90e6-d701748f0851"
+      isbn:
+        type: "integer"
+        example: "Widget Adapter"
+      nome:
+        type: "string"
+        example: "Widget Adapter"
+      editora:
+        type: "string"
+        format: "text"
+      ano_lancamento:
+        type: "string"
+        format: "text"
+      genero:
+        type: "string"
+        format: "text"
+    example:
+      ano_lancamento: "ano_lancamento"
+      isbn: "Widget Adapter"
+      genero: "genero"
+      nome: "Widget Adapter"
+      id: "d290f1ee-6c54-4b01-90e6-d701748f0851"
+      editora: "editora"

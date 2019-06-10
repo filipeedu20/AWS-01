@@ -1,0 +1,40 @@
+GET /livros
+GET /livros/{livroId}
+
+GET /autores
+GET /autores/{autorId}
+
+GET /generos
+GET /generos/{generoId}
+
+GET /idiomas
+GET /idiomas/{idiomaId}
+
+GET /editoras
+GET /editoras/{editoraId}
+
+GET /ofertas
+
+
+PUT /livros
+PUT /autores
+PUT /generos
+PUT /idiomas
+PUT /editoras
+
+PUT /livros/{livroId}
+PUT /autores/{autorId}
+PUT /generos/{generoId}
+PUT /idiomas/{idiomaId}
+PUT /editoras/{editoraId}
+PUT /ofertas/{livroId}
+
+DELETE /livros/{livroId}
+DELETE /autores/{autorId}
+DELETE /generos/{generoId}
+DELETE /idiomas/{idiomaId}
+DELETE /editoras/{editorasId}
+DELETE /ofertas/{livroId}
+
+
+
